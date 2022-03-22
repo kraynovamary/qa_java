@@ -1,17 +1,24 @@
 package com.example;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class LionTest {
+    @Mock
+    Feline feline;
 
     @Test
     public void getKittensTest() throws Exception {
-        Feline feline = new Feline();
         Lion lion = new Lion("Самец", feline);
+        Mockito.when(feline.getKittens()).thenReturn(1);
         int actual = lion.getKittens();
         int expected = 1;
-        assertEquals(expected, actual);
+        assertEquals("Неверное количество", expected, actual);
     }
 }

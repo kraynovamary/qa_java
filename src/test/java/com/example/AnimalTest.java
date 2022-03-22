@@ -2,6 +2,8 @@ package com.example;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class AnimalTest {
@@ -14,12 +16,10 @@ public class AnimalTest {
     }
 
     @Test
-    public void getFoodTest() {
+    public void getFoodTest() throws Exception {
+        List<String> expected = List.of("Трава", "Различные растения");
         Animal animal = new Animal();
-        try {
-            animal.getFood("Всеядное");
-        } catch (Exception e) {
-            assertEquals(e.getMessage(),"Неизвестный вид животного, используйте значение Травоядное или Хищник");
-        }
+        List<String> actual = animal.getFood("Травоядное");
+        assertEquals(expected, actual);
     }
 }

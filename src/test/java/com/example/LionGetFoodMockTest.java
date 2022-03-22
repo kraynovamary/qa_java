@@ -16,9 +16,10 @@ public class LionGetFoodMockTest {
     @Test
     public void getFoodTest() throws Exception {
         Lion lion = new Lion("Самец", feline);
-        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        List<String> predatorFood = List.of("Животные", "Птицы", "Рыба");
+        Mockito.when(feline.getFood("Хищник")).thenReturn(predatorFood);
         List<String> actual = lion.getFood();
-        List<String> expected = List.of("Животные", "Птицы", "Рыба");
+        List<String> expected = predatorFood;
         assertEquals(expected, actual);
     }
 
