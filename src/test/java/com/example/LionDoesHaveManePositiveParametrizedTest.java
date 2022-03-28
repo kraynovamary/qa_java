@@ -1,11 +1,10 @@
 package com.example;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
 public class LionDoesHaveManePositiveParametrizedTest {
@@ -27,10 +26,15 @@ public class LionDoesHaveManePositiveParametrizedTest {
 
     @Test
     public void doesHaveManePositiveTest() throws Exception {
-        Feline feline = new Feline();
-        Lion lion = new Lion(sex, feline);
-        boolean expected = lion.doesHaveMane();
-        assertEquals(expected, hasMane);
+        try {
+            Feline feline = new Feline();
+            Lion lion = new Lion(sex, feline);
+            boolean expected = lion.doesHaveMane();
+            assertEquals(expected, hasMane);
+        } catch (IllegalArgumentException exception) {
+            fail("Используйте допустимые значения пола животного - самец или самка");
+            exception.printStackTrace();
+        }
     }
 }
 
