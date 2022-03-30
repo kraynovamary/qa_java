@@ -20,7 +20,9 @@ public class LionDoesHaveManePositiveParametrizedTest {
     public static Object[] getSex() {
         return new Object[][]{
                 {"Самец", true},
-                {"Самка", false}
+                {"Самка", false},
+                {"Человек", false},
+                {"Лев", true}
         };
     }
 
