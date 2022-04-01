@@ -1,37 +1,40 @@
 package com.example;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import static org.junit.Assert.*;
 
 //проверяем, что при передаче невалидных аргументов выбрасывается исключение
 @RunWith(Parameterized.class)
 public class LionExceptionTest{
     private final String sex;
+    private final Boolean hasMane;
 
-    public LionExceptionTest(String sex) {
+    public LionExceptionTest(String sex, Boolean hasMane) {
         this.sex = sex;
+        this.hasMane = hasMane;
     }
 
     @Parameterized.Parameters
     public static Object[][] getLionData() {
         return new Object[][]{
-                {" "},
-                {"Лев"},
-                {"Lion"},
-                {"Female"},
-                {"Male"},
+                {" ", true},
+                {"Лев", true},
+                {"Lion", false},
+                {"Female", false},
+                {"Male", true}
         };
     }
+    @Rule
+    public ExpectedException exceptionRule = ExpectedException.none();
 
-    @Test(expected = Exception.class)
-    public void validLionSex() throws Exception {
-        try {
-            Feline feline = new Feline();
-            Lion lion = new Lion(sex, feline);
-        } catch (IllegalArgumentException e) {
-            assertEquals("Используйте допустимые значения пола животного - самец или самка", e.getMessage());
-        }
+    @Test
+    public void whenExceptionThrown_thenRuleIsApplied() throws Exception {
+        exceptionRule.expect(Exception.class);
+        exceptionRule.expectMessage("Используйте допустимые значения пола животного - самец или самка");
+        Feline feline = new Feline();
+        new Lion(sex, feline);
     }
 }
